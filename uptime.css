@@ -1,0 +1,131 @@
+:root{
+  --bg: #0d1117;
+  --panel: rgba(255,255,255,0.55); /* 半透明白色玻璃背景 */
+  --panel-2: rgba(245,245,245,0.55);
+  --text: #111; /* 黑色標題與主要文字 */
+  --muted: #444; /* 灰黑色次要文字 */
+  --accent: #0070f3;
+  --line: rgba(0,0,0,.1);
+  --ok: #2ea043;
+  --warn: #f2cc60;
+  --down: #f85149;
+  --unknown: #6e7681;
+  --radius: 16px;
+  --pad: 1rem;
+  --shadow: 0 8px 32px rgba(0,0,0,.25);
+}
+
+body{
+  background: url("https://example.com/uptime_background.jpg") no-repeat center center fixed !important;
+  background-size: cover !important;
+  color: var(--text);
+}
+a{ color: var(--accent) }
+
+.container{ max-width: 110rem; margin-inline: auto; padding: 1rem }
+
+.monitor-list{ display:grid !important; grid-template-columns: repeat(2, minmax(280px, 1fr)); gap:1.5rem; }
+
+@media (max-width: 600px) {
+  .monitor-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.monitor-list>.monitor-list{ display:contents !important }
+
+.overall-status {
+  background: var(--panel)!important;
+  border: 1px solid var(--line)!important;
+  border-radius: var(--radius)!important;
+  box-shadow: var(--shadow)!important;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.item{
+  display:flex; flex-direction:column; justify-content:space-between;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:var(--pad);
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  transition:transform .2s ease, box-shadow .2s ease;
+  color: var(--text);
+}
+.item:hover{ transform:translateY(-5px); box-shadow:0 12px 40px rgba(0,0,0,.35) }
+
+.item-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem }
+.item-name{ font-weight:700; font-size:1.1rem; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#000 }
+.item .url{ font-size:.85rem; color:var(--muted); margin-top:.25rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+
+.badge,.text-bg-success,.text-bg-warning,.text-bg-danger,.text-bg-secondary{
+  border-radius:999px !important; font-weight:600; font-size:.8rem;
+  padding:.3rem .75rem; border:1px solid var(--line);
+  box-shadow:0 2px 6px rgba(0,0,0,.15)
+}
+.badge.bg-success,.text-bg-success{ background:var(--ok)!important; color:#fff!important }
+.badge.bg-warning,.text-bg-warning{ background:var(--warn)!important; color:#111!important }
+.badge.bg-danger,.text-bg-danger{ background:var(--down)!important; color:#fff!important }
+.badge.bg-secondary,.text-bg-secondary{ background:var(--unknown)!important; color:#fff!important }
+
+.item-stats{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:.75rem }
+.stat{
+  flex:1 1 45%; min-width:100px;
+  display:flex; align-items:center; gap:.4rem;
+  color:var(--muted); font-size:.85rem
+}
+.stat strong{ color:#000; font-weight:700; font-variant-numeric:tabular-nums }
+
+.stat::before{ font-family:"Lucide"; font-size:1rem; color:var(--muted) }
+.stat.ping::before{ content:"⇆" }
+.stat.uptime::before{ content:"%" }
+.stat.lastcheck::before{ content:"⏱" }
+
+.item-tags{ margin-top:.75rem }
+.tag,.badge.bg-info,.text-bg-info{
+  background:rgba(0,112,243,.2)!important; color:#000!important; border:1px solid rgba(0,112,243,.35)!important;
+  border-radius:999px!important; padding:.25rem .6rem; margin-right:.4rem; font-size:.75rem; font-weight:600;
+  backdrop-filter: blur(6px) saturate(150%);
+}
+
+.card,.card-body{
+  background:var(--panel)!important; border:1px solid var(--line)!important; border-radius:var(--radius)!important; box-shadow:var(--shadow)!important; backdrop-filter:blur(14px) saturate(160%)
+}
+
+.btn{ border-radius:999px!important; border:1px solid var(--line)!important; background:rgba(255,255,255,.3)!important; color:#000!important; backdrop-filter:blur(8px) saturate(160%) }
+.btn-primary{ background:linear-gradient(180deg,var(--accent),color-mix(in oklab,var(--accent),black 40%))!important; border-color:color-mix(in oklab,var(--accent),black 55%)!important; color:#fff!important }
+
+@media(max-width:600px){
+  .monitor-list{ grid-template-columns:1fr }
+}
+
+.text-bg-danger{
+  position:relative
+}
+.text-bg-danger::after{
+  content:"";position:absolute;inset:-3px;border-radius:999px;border:2px solid rgba(248,81,73,.35);filter:blur(2px);animation:pulse 1.8s infinite ease-out
+}
+@keyframes pulse{0%{opacity:.9;transform:scale(.95)}100%{opacity:0;transform:scale(1.3)}}
+
+::-webkit-scrollbar {
+    display: none; /* 隱藏整個滾動條 */
+}
+
+.monitor-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  grid-auto-rows: 1fr; /* 讓所有網格項目都有相同高度 */
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .monitor-list {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr; /* 在手機版也保持相同高度 */
+  }
+}
