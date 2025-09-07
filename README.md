@@ -1,4 +1,4 @@
-# uptime-kuma-css
+# Uptime-Kuma-CSS
 ## 使用
 請將
 ```
